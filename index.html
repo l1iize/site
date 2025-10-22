@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>combolize</title>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    color: #fff;
+    font-family: 'UnifrakturCook', serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  /* 混沌背景动画 */
+  body::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    animation: chaos 10s linear infinite;
+    z-index: -1;
+  }
+
+  @keyframes chaos {
+    0% { transform: translate(0,0) rotate(0deg); }
+    50% { transform: translate(-50px, 30px) rotate(180deg); }
+    100% { transform: translate(0,0) rotate(360deg); }
+  }
+
+  h1 {
+    font-size: 64px;
+    letter-spacing: 2px;
+    margin: 0;
+    text-shadow: 0 0 8px rgba(255,255,255,0.3);
+  }
+
+  p {
+    font-size: 18px;
+    margin-top: 12px;
+    color: #ccc;
+    max-width: 600px;
+    text-align: center;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+  <h1>combolize</h1>
+  <p>im sleeping... dont wake me up</p>
+</body>
+</html>
