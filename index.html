@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>combolize</title>
-<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
 <style>
   html, body {
     margin: 0;
@@ -13,36 +13,29 @@
     overflow: hidden;
     background: #000;
     color: #fff;
-    font-family: 'UnifrakturCook', serif;
+    font-family: 'Cinzel Decorative', serif;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    position: relative;
   }
 
-  /* 混沌背景动画 */
-  body::before {
-    content: '';
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-    background-size: 20px 20px;
-    animation: chaos 10s linear infinite;
-    z-index: -1;
-  }
-
-  @keyframes chaos {
-    0% { transform: translate(0,0) rotate(0deg); }
-    50% { transform: translate(-50px, 30px) rotate(180deg); }
-    100% { transform: translate(0,0) rotate(360deg); }
+  canvas {
+    position: fixed;
+    top:0; left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
   }
 
   h1 {
     font-size: 64px;
     letter-spacing: 2px;
     margin: 0;
-    text-shadow: 0 0 8px rgba(255,255,255,0.3);
+    color: #fff;
+    text-shadow: 0 0 4px rgba(255,255,255,0.6), 0 0 10px rgba(255,255,255,0.3);
+    animation: shake 2s infinite;
   }
 
   p {
@@ -52,11 +45,117 @@
     max-width: 600px;
     text-align: center;
     line-height: 1.5;
+    animation: flicker 1.5s infinite;
+  }
+
+  @keyframes shake {
+    0% { transform: translate(0px,0px); }
+    25% { transform: translate(-1px,1px); }
+    50% { transform: translate(1px,-1px); }
+    75% { transform: translate(-1px,-1px); }
+    100% { transform: translate(0px,0px); }
+  }
+
+  @keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity:1; }
+    20%, 22%, 24%, 55% { opacity:0.2; }
   }
 </style>
 </head>
 <body>
   <h1>combolize</h1>
   <p>im sleeping... dont wake me up</p>
+
+  <canvas id="bg"></canvas>
+
+  <script>
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+
+    
+    const particles = [];
+    const PARTICLE_COUNT = 300;
+
+    function random(min,max){ return Math.random()*(max-min)+min; }
+
+    function createParticles(){
+      for(let i=0;i<PARTICLE_COUNT;i++){
+        particles.push({
+          x: random(0,w),
+          y: random(0,h),
+          vx: random(-1,1),
+          vy: random(-1,1),
+          size: random(2,5),
+          alpha: random(0.3,0.9),
+          flickerSpeed: random(0.05,0.15),
+          angle: random(0, Math.PI*2)
+        });
+      }
+    }
+
+    function draw(){
+      
+      ctx.fillStyle = 'rgba(0,0,0,0.1)';
+      ctx.fillRect(0,0,w,h);
+
+      
+      for(let i=0;i<200;i++){
+        const x = Math.random()*w;
+        const y = Math.random()*h;
+        const size = Math.random()*20;
+        ctx.beginPath();
+        ctx.arc(x,y,size,0,Math.PI*2);
+        ctx.fillStyle = `rgba(50,50,50,${Math.random()*0.2 + 0.05})`;
+        ctx.fill();
+      }
+
+     
+      for(let p of particles){
+        const angleSpeed = 0.003;
+        p.angle += angleSpeed;
+        p.x += p.vx + Math.sin(p.angle)*0.5;
+        p.y += p.vy + Math.cos(p.angle)*0.5;
+
+        if(p.x<0) p.x = w;
+        if(p.x>w) p.x = 0;
+        if(p.y<0) p.y = h;
+        if(p.y>h) p.y = 0;
+
+        p.alpha += (Math.random()*p.flickerSpeed - p.flickerSpeed/2);
+        if(p.alpha <0.2) p.alpha =0.2;
+        if(p.alpha >0.9) p.alpha=0.9;
+
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+        ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
+        ctx.fill();
+      }
+
+      
+      if(Math.random()<0.05){ 
+        for(let i=0;i<50;i++){
+          const x = Math.random()*w;
+          const y = Math.random()*h;
+          const size = Math.random()*5 + 2;
+          ctx.beginPath();
+          ctx.arc(x,y,size,0,Math.PI*2);
+          ctx.fillStyle = `rgba(255,255,255,${Math.random()*0.9})`;
+          ctx.fill();
+        }
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    createParticles();
+    draw();
+
+    window.addEventListener('resize', ()=>{
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    });
+  </script>
 </body>
 </html>
