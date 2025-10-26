@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>combolize — producer</title>
 
-<!-- Gothic font -->
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
 
 <style>
@@ -19,13 +18,11 @@ body {
   position: relative;
 }
 
-/* Force font for all elements */
 body, body *, #about, #about *, .about, .about * {
   font-family: 'Times New Roman', 'UnifrakturCook', serif !important;
   color: #ff1a1a !important;
 }
 
-/* Full-page glitch background */
 body::before {
   content: "";
   position: fixed;
@@ -45,18 +42,69 @@ body::before {
   pointer-events: none;
 }
 
-a {
-  color: #ff1a1a;
-  text-decoration: none;
-  transition: opacity 0.2s;
-  font-weight: 700;
+/* ---- Entrance Overlay ---- */
+#entrance {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  overflow: hidden;
 }
-a:hover { opacity: 0.7; }
+#entrance h1 {
+  font-size: 64px;
+  color: #ff1a1a;
+  z-index: 10;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  opacity: 0;
+  animation: entranceTextFade 1.2s forwards;
+}
+#red-block {
+  position: absolute;
+  bottom: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #ff1a1a;
+  z-index: 5;
+  animation: redBlockRise 2.1s forwards 2.0s;
+}
 
-/* ---- Header ---- */
+/* Hero & Sections Hidden Initially */
+.content-wrapper {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+/* Buttons */
+.btn {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 28px;
+  border: 1px solid #ff1a1a;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  transition: background 0.3s, color 0.3s;
+}
+.btn:hover {
+  background: #ff1a1a;
+  color: #000;
+}
+
+/* Header */
 header {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   background: rgba(0,0,0,0.6);
   backdrop-filter: blur(6px);
@@ -64,22 +112,16 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 60px;
+  padding: 18px 50px 18px 10px;
+  flex-wrap: wrap;
 }
-header h1 {
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-size: 20px;
-}
-nav a {
-  margin-left: 30px;
-  font-size: 16px;
-}
+header h1 { font-weight:700; letter-spacing:2px; text-transform:uppercase; font-size:20px; margin:0; margin-left:20px; }
+nav a { margin-left:30px; font-size:16px; text-decoration:none; color:#ff1a1a; }
+nav a:hover { color:#fff; }
 
-/* ---- Hero ---- */
+/* Hero */
 .hero {
-  height: 100vh;
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -87,6 +129,7 @@ nav a {
   text-align: center;
   position: relative;
   overflow: hidden;
+  padding: 0 10px;
 }
 .hero h2 {
   position: relative;
@@ -109,68 +152,23 @@ nav a {
   font-weight: 700;
   opacity: 0.9;
 }
-.hero a.btn {
-  position: relative;
-  z-index: 2;
-  display: inline-block;
-  margin-top: 30px;
-  padding: 12px 28px;
-  border: 1px solid #ff1a1a;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 700;
-  transition: background 0.3s;
-}
-.hero a.btn:hover {
-  background: #ff1a1a;
-  color: #000;
-}
 
-/* ---- Sections ---- */
-.section {
-  padding: 120px 10%;
-  text-align: center;
-}
-.section h3 {
-  font-size: 32px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 40px;
-}
-
-/* Tracks */
-#track-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-}
-.track-card {
-  background: #111;
-  border: 1px solid #222;
-  width: 320px;
-  padding: 20px;
-  border-radius: 8px;
-  transition: transform 0.3s;
-}
-.track-card:hover { transform: translateY(-5px); }
-.track-card h4 { margin: 0 0 10px 0; }
-
-/* About */
-.about {
-  max-width: 800px;
-  margin: 0 auto;
-  font-size: 16px;
-  line-height: 1.7;
-}
+/* Sections */
+.section { padding: 120px 10%; text-align: center; }
+.section h3 { font-size: 32px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 40px; }
+#track-list { display:flex; flex-direction:column; justify-content:center; align-items:center; gap:20px; }
+.about { max-width:800px; margin:0 auto; font-size:16px; line-height:1.7; }
 
 /* Footer */
-footer {
-  padding: 60px 0;
-  text-align: center;
-  background: #050505;
-  font-size: 14px;
+footer { 
+  background-color:#111; 
+  padding:60px 0; 
+  text-align:center; 
+  font-size:14px; 
 }
+footer div:first-child { margin-bottom: 20px; }
+footer svg { transition: transform 0.3s; }
+footer svg:hover { transform: scale(1.2); }
 
 /* Animations */
 @keyframes glitchBG {
@@ -189,11 +187,79 @@ footer {
   80% { text-shadow: 1px 0 #ff1a1a, -2px 2px #00ffff, 0 1px #ff4d4d; }
   100% { text-shadow: 2px 0 #ff1a1a, -2px 0 #00ffff, 0 2px #ff4d4d; }
 }
+@keyframes entranceTextFade {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes redBlockRise {
+  0% { bottom: -100%; }
+  50% { bottom: 0; }
+  100% { bottom: 100%; }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  header {
+    padding: 12px 20px;
+    justify-content: center;
+  }
+  header h1 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    width: 100%;
+    text-align: center;
+  }
+  nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  nav a {
+    margin-left: 0;
+    font-size: 14px;
+  }
+  .hero h2 {
+    font-size: 32px;
+  }
+  .hero p {
+    font-size: 14px;
+  }
+  .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  .section {
+    padding: 80px 5%;
+  }
+  .section h3 {
+    font-size: 24px;
+  }
+  .about {
+    font-size: 14px;
+  }
+  footer {
+    padding: 40px 5%;
+  }
+  footer svg {
+    width: 20px;
+    height: 20px;
+  }
+}
 </style>
 </head>
 
 <body>
 
+<!-- Entrance overlay -->
+<div id="entrance">
+  <h1>combolize</h1>
+  <div id="red-block"></div>
+</div>
+
+<!-- Page content wrapper -->
+<div class="content-wrapper">
 <header>
   <h1>combolize</h1>
   <nav>
@@ -212,7 +278,8 @@ footer {
 <section id="tracks" class="section">
   <h3>Latest Tracks</h3>
   <div id="track-list">
-    <p style="color:#888;">Loading tracks...</p>
+    <p style="color:#888;">check on soundcloud</p>
+    <a href="https://soundcloud.com/combolize" class="btn" target="_blank">Go to SoundCloud</a>
   </div>
 </section>
 
@@ -224,101 +291,38 @@ footer {
 </section>
 
 <footer>
-  <div style="margin-bottom:10px;">
-   combolize 
-  </div>
-  <div>
-    <!-- Instagram -->
-    <a href="https://www.instagram.com/combolize" target="_blank" style="margin-right:20px;">
+  <div>© 2025 combolize</div>
+  <div style="display: flex; justify-content: center; gap: 20px;">
+    <!-- SoundCloud -->
+    <a href="https://soundcloud.com/combolize" target="_blank" aria-label="SoundCloud">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#ff1a1a" viewBox="0 0 24 24">
-        <path d="M12 2.2c3.2 0 3.584.012 4.85.07 1.17.056 1.97.24 2.43.414a4.92 4.92 0 011.78 1.024 4.92 4.92 0 011.024 1.78c.174.46.358 1.26.414 2.43.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.97-.414 2.43a4.92 4.92 0 01-1.024 1.78 4.92 4.92 0 01-1.78 1.024c-.46.174-1.26.358-2.43.414-1.266.058-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.97-.24-2.43-.414a4.92 4.92 0 01-1.78-1.024 4.92 4.92 0 01-1.024-1.78c-.174-.46-.358-1.26-.414-2.43C2.212 15.584 2.2 15.2 2.2 12s.012-3.584.07-4.85c.056-1.17.24-1.97.414-2.43a4.92 4.92 0 011.024-1.78A4.92 4.92 0 015.488 2.684c.46-.174 1.26-.358 2.43-.414C8.416 2.212 8.8 2.2 12 2.2zm0-2.2C8.735 0 8.332.013 7.052.072c-1.281.06-2.158.272-2.92.58a6.92 6.92 0 00-2.5 1.62 6.92 6.92 0 00-1.62 2.5c-.308.762-.52 1.639-.58 2.92C.013 8.332 0 8.735 0 12c0 3.265.013 3.668.072 4.948.06 1.281.272 2.158.58 2.92a6.92 6.92 0 001.62 2.5 6.92 6.92 0 002.5 1.62c.762.308 1.639.52 2.92.58C8.332 23.987 8.735 24 12 24s3.668-.013 4.948-.072c1.281-.06 2.158-.272 2.92-.58a6.92 6.92 0 002.5-1.62 6.92 6.92 0 001.62-2.5c.308-.762.52-1.639.58-2.92.059-1.28.072-1.683.072-4.948s-.013-3.668-.072-4.948c-.06-1.281-.272-2.158-.58-2.92a6.92 6.92 0 00-1.62-2.5 6.92 6.92 0 00-2.5-1.62c-.762-.308-1.639-.52-2.92-.58C15.668.013 15.265 0 12 0z"/>
-        <path d="M12 5.838a6.162 6.162 0 106.162 6.162A6.162 6.162 0 0012 5.838zm0 10.162a4 4 0 114-4 4.005 4.005 0 01-4 4z"/>
-        <circle cx="18.406" cy="5.594" r="1.44"/>
+        <path d="M18.8 10.5c-.1-2.1-1.9-3.7-4-3.5-1.4.1-2.5.9-3 2.1-.2-.1-.5-.1-.8-.1-1.7 0-3 1.3-3 3 0 1.6 1.3 3 3 3h8c1.7 0 3-1.3 3-3 0-1.5-1.1-2.7-2.2-2.9z"/>
       </svg>
     </a>
-
+    <!-- Instagram -->
+    <a href="https://instagram.com/combolize" target="_blank" aria-label="Instagram">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#ff1a1a" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 2C4.243 2 2 4.243 2 7V17C2 19.757 4.243 22 7 22H17C19.757 22 22 19.757 22 17V7C22 4.243 19.757 2 17 2H7ZM20 17C20 18.657 18.657 20 17 20H7C5.343 20 4 18.657 4 17V7C4 5.343 5.343 4 7 4H17C18.657 4 20 5.343 20 7V17ZM12 7C9.243 7 7 9.243 7 12C7 14.757 9.243 17 12 17C14.757 17 17 14.757 17 12C17 9.243 14.757 7 12 7ZM12 15C10.346 15 9 13.654 9 12C9 10.346 10.346 9 12 9C13.654 9 15 10.346 15 12C15 13.654 13.654 15 12 15ZM17.5 6C17.224 6 17 6.224 17 6.5C17 6.776 17.224 7 17.5 7C17.776 7 18 6.776 18 6.5C18 6.224 17.776 6 17.5 6Z"/>
+      </svg>
+    </a>
     <!-- YouTube -->
-    <a href="https://www.youtube.com/@combolize" target="_blank">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#ff1a1a" viewBox="0 0 24 24">
-        <path d="M23.498 6.186a2.997 2.997 0 00-2.113-2.115C19.346 3.5 12 3.5 12 3.5s-7.346 0-9.385.571a2.997 2.997 0 00-2.113 2.115A31.115 31.115 0 000 12a31.115 31.115 0 00.502 5.814 2.997 2.997 0 002.113 2.115C4.654 20.5 12 20.5 12 20.5s7.346 0 9.385-.571a2.997 2.997 0 002.113-2.115A31.115 31.115 0 0024 12a31.115 31.115 0 00-.502-5.814zM9.75 15.02V8.98l6.18 3.02-6.18 3.02z"/>
+    <a href="https://youtube.com/@combolize" target="_blank" aria-label="YouTube">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#ff1a1a" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.8 8.001C21.732 7.491 21.496 7.016 21.124 6.645C20.753 6.274 20.278 6.038 19.768 5.97C18.526 5.794 12 5.794 12 5.794C12 5.794 5.474 5.794 4.232 5.97C3.722 6.038 3.247 6.274 2.876 6.645C2.504 7.016 2.268 7.491 2.2 8.001C2 9.25 2 12 2 12C2 12 2 14.75 2.2 15.999C2.268 16.509 2.504 16.984 2.876 17.355C3.247 17.726 3.722 17.962 4.232 18.03C5.474 18.206 12 18.206 12 18.206C12 18.206 18.526 18.206 19.768 18.03C20.278 17.962 20.753 17.726 21.124 17.355C21.496 16.984 21.732 16.509 21.8 15.999C22 14.75 22 12 22 12C22 12 22 9.25 21.8 8.001ZM10 15V9L15 12L10 15Z"/>
       </svg>
     </a>
   </div>
 </footer>
 
+</div>
+
 <script>
-// === Auto fetch client_id from SoundCloud discover page ===
-async function getClientID() {
-  try {
-    const res = await fetch("https://soundcloud.com/discover");
-    const text = await res.text();
-    const match = text.match(/client_id=([a-zA-Z0-9]{32})/);
-    if (match) return match[1];
-  } catch (e) {
-    console.error("Failed to fetch client_id:", e);
-  }
-  return null;
-}
-
-// === Resolve user ID from username ===
-async function getUserID(username, client_id) {
-  const url = `https://api-v2.soundcloud.com/resolve?url=https://soundcloud.com/${username}&client_id=${client_id}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data?.id || null;
-}
-
-// === Fetch tracks by user ID ===
-async function getTracks(user_id, client_id) {
-  const url = `https://api-v2.soundcloud.com/users/${user_id}/tracks?client_id=${client_id}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data.collection || [];
-}
-
-// === Render tracks on page ===
-function renderTracks(tracks) {
-  const container = document.getElementById("track-list");
-  container.innerHTML = "";
-
-  if (!tracks.length) {
-    container.innerHTML = "<p style='color:#888;'>No tracks found.</p>";
-    return;
-  }
-
-  tracks.forEach(track => {
-    const div = document.createElement("div");
-    div.className = "track-card";
-    div.innerHTML = `
-      <h4>${track.title}</h4>
-      <audio controls src="${track.media.transcodings?.[0]?.url}?client_id=${track.client_id || ''}" preload="none"></audio>
-    `;
-    container.appendChild(div);
-  });
-}
-
-// === Main updater function ===
-async function updateSoundcloudTracks() {
-  const username = "combolize";
-  const client_id = await getClientID();
-  if (!client_id) {
-    console.error("Cannot fetch SoundCloud client_id");
-    return;
-  }
-
-  const user_id = await getUserID(username, client_id);
-  if (!user_id) {
-    console.error("Cannot resolve user ID");
-    return;
-  }
-
-  const tracks = await getTracks(user_id, client_id);
-  renderTracks(tracks);
-}
-
-//Run on load and refresh every 6 hours
-updateSoundcloudTracks();
-setInterval(updateSoundcloudTracks, 6 * 60 * 60 * 1000);
+setTimeout(() => {
+  const content = document.querySelector('.content-wrapper');
+  content.style.opacity = '1';
+  content.style.transform = 'translateY(0)';
+  document.getElementById('entrance').style.display = 'none';
+}, 2500);
 </script>
 
 </body>
