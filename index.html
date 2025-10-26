@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>combolize — producer</title>
+<title>comboliz</title>
 
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
 
@@ -63,7 +63,7 @@ body::before {
   text-transform: uppercase;
   letter-spacing: 4px;
   opacity: 0;
-  animation: entranceTextFade 1.2s forwards;
+  animation: entranceTextFade 0.5s forwards;
 }
 #red-block {
   position: absolute;
@@ -72,7 +72,7 @@ body::before {
   height: 100%;
   background-color: #ff1a1a;
   z-index: 5;
-  animation: redBlockRise 2.1s forwards 2.0s;
+  animation: redBlockRise 1.4s forwards 1.6s;
 }
 
 /* Hero & Sections Hidden Initially */
@@ -110,13 +110,29 @@ header {
   backdrop-filter: blur(6px);
   z-index: 10;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 18px 50px 18px 10px;
+  padding: 18px 30px; /* 左右内边距 */
+  justify-content: flex-start; /* 左对齐 */
+  gap: 40px; /* h1 和 nav 之间间距 */
   flex-wrap: wrap;
 }
-header h1 { font-weight:700; letter-spacing:2px; text-transform:uppercase; font-size:20px; margin:0; margin-left:20px; }
-nav a { margin-left:30px; font-size:16px; text-decoration:none; color:#ff1a1a; }
+header h1 {
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-size:20px;
+  margin:0;
+  margin-left:20px; /* 左上角右移 */
+}
+nav {
+  display: flex;
+  gap: 30px; /* 链接间距 */
+}
+nav a {
+  font-size:16px;
+  text-decoration:none;
+  color:#ff1a1a;
+}
 nav a:hover { color:#fff; }
 
 /* Hero */
@@ -202,23 +218,25 @@ footer svg:hover { transform: scale(1.2); }
   header {
     padding: 12px 20px;
     justify-content: center;
+    gap: 20px;
   }
   header h1 {
     font-size: 16px;
     margin-bottom: 8px;
     width: 100%;
     text-align: center;
+    margin-left: 0;
   }
   nav {
     width: 100%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
   }
   nav a {
-    margin-left: 0;
     font-size: 14px;
+    margin-left: 0;
   }
   .hero h2 {
     font-size: 32px;
