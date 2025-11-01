@@ -157,6 +157,7 @@ footer { background-color:#111; padding:60px 0; text-align:center; font-size:14p
 footer div:first-child { margin-bottom: 20px; }
 footer svg { transition: transform 0.3s; }
 footer svg:hover { transform: scale(1.2); }
+
 @keyframes glitchBG {
   0% { transform: translate(0,0); opacity: 0.1; }
   20% { transform: translate(-5px,2px); opacity: 0.1; }
@@ -182,18 +183,19 @@ footer svg:hover { transform: scale(1.2); }
   50% { bottom: 0; }
   100% { bottom: 100%; }
 }
+
 @media (max-width: 768px) {
   header {
     padding: 12px 20px;
     justify-content: center;
-    gap: 20px;
+    flex-direction: column; /* 垂直排列 */
+    align-items: center;    /* 水平居中 */
+    gap: 10px;
   }
   header h1 {
     font-size: 16px;
-    margin-bottom: 8px;
-    width: 100%;
+    margin: 0;
     text-align: center;
-    margin-left: 0;
   }
   nav {
     width: 100%;
@@ -205,32 +207,14 @@ footer svg:hover { transform: scale(1.2); }
   nav a {
     font-size: 14px;
   }
-  .hero h2 {
-    font-size: 32px;
-  }
-  .hero p {
-    font-size: 14px;
-  }
-  .btn {
-    padding: 10px 20px;
-    font-size: 14px;
-  }
-  .section {
-    padding: 80px 5%;
-  }
-  .section h3 {
-    font-size: 24px;
-  }
-  .about {
-    font-size: 14px;
-  }
-  footer {
-    padding: 40px 5%;
-  }
-  footer svg {
-    width: 20px;
-    height: 20px;
-  }
+  .hero h2 { font-size: 32px; }
+  .hero p { font-size: 14px; }
+  .btn { padding: 10px 20px; font-size: 14px; }
+  .section { padding: 80px 5%; }
+  .section h3 { font-size: 24px; }
+  .about { font-size: 14px; }
+  footer { padding: 40px 5%; }
+  footer svg { width: 20px; height: 20px; }
 }
 </style>
 </head>
