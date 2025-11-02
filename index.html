@@ -100,8 +100,8 @@ header {
   align-items: center;
   padding: 18px 30px;
   justify-content: flex-start;
-  gap: 40px;
-  flex-wrap: wrap;
+  gap: 20px;
+  flex-wrap: nowrap;
 }
 header h1 {
   font-weight:700;
@@ -109,11 +109,10 @@ header h1 {
   text-transform:uppercase;
   font-size:20px;
   margin:0;
-  margin-left:20px;
 }
 nav {
   display: flex;
-  gap: 30px;
+  gap: 20px;
 }
 nav a {
   font-size:16px;
@@ -182,39 +181,6 @@ footer svg:hover { transform: scale(1.2); }
   0% { bottom: -100%; }
   50% { bottom: 0; }
   100% { bottom: 100%; }
-}
-
-@media (max-width: 768px) {
-  header {
-    padding: 12px 20px;
-    justify-content: center;
-    flex-direction: column; /* 垂直排列 */
-    align-items: center;    /* 水平居中 */
-    gap: 10px;
-  }
-  header h1 {
-    font-size: 16px;
-    margin: 0;
-    text-align: center;
-  }
-  nav {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-  }
-  nav a {
-    font-size: 14px;
-  }
-  .hero h2 { font-size: 32px; }
-  .hero p { font-size: 14px; }
-  .btn { padding: 10px 20px; font-size: 14px; }
-  .section { padding: 80px 5%; }
-  .section h3 { font-size: 24px; }
-  .about { font-size: 14px; }
-  footer { padding: 40px 5%; }
-  footer svg { width: 20px; height: 20px; }
 }
 </style>
 </head>
