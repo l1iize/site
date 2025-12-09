@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>illwe // PRODUCER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #050505;
+            --main-color: #e0e0e0;
+            --dim-color: #555;
+            --accent-black: #000;
+            --scanline-opacity: 0.15;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--main-color);
+            font-family: 'Space Mono', monospace;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 999;
+            opacity: var(--scanline-opacity);
+        }
+
+        .chassis {
+            width: 90%;
+            max-width: 600px;
+            border: 2px solid var(--main-color);
+            padding: 20px;
+            position: relative;
+            background: var(--bg-color);
+            box-shadow: 10px 10px 0px var(--dim-color);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed var(--dim-color);
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        .meta-data {
+            font-size: 0.7rem;
+            text-align: right;
+            color: var(--dim-color);
+        }
+
+        .screen-container {
+            border: 1px solid var(--dim-color);
+            padding: 5px;
+            margin-bottom: 20px;
+        }
+
+        .screen {
+            background-color: var(--main-color);
+            color: var(--accent-black);
+            padding: 15px;
+            min-height: 120px;
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        .blink {
+            animation: blinker 1s linear infinite;
+        }
+
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+
+        .deck-controls {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .link-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: var(--main-color);
+            border: 1px solid var(--main-color);
+            padding: 12px 15px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .link-btn:hover {
+            background-color: var(--main-color);
+            color: var(--accent-black);
+            box-shadow: 4px 4px 0px var(--dim-color);
+            transform: translate(-2px, -2px);
+        }
+
+        .link-btn .icon {
+            font-size: 0.8rem;
+        }
+
+        .tape-window {
+            height: 40px;
+            background: repeating-linear-gradient(
+                45deg,
+                #222,
+                #222 10px,
+                #111 10px,
+                #111 20px
+            );
+            margin: 20px 0;
+            border: 1px solid var(--dim-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: #444;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; filter: blur(5px); }
+            to { opacity: 1; filter: blur(0); }
+        }
+
+        .ty-content {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .heart-ascii {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .back-btn {
+            margin-top: 30px;
+            display: inline-block;
+            background: transparent;
+            border: 1px solid var(--main-color);
+            color: var(--main-color);
+            padding: 10px 30px;
+            font-family: 'Space Mono', monospace;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        
+        .back-btn:hover {
+            background: var(--main-color);
+            color: var(--bg-color);
+        }
+
+        @media (max-width: 600px) {
+            .chassis { width: 95%; padding: 15px; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scanlines"></div>
+
+    <div class="chassis">
+        
+        <div id="home-page" class="page active">
+            <header>
+                <div>
+                    <h1>illwe</h1>
+                    <div style="font-size: 0.8rem; letter-spacing: 2px;">PRODUCER // SYSTEM.OP</div>
+                </div>
+                <div class="meta-data">
+                    <p>REC ●</p>
+                    <p>TAPE A-SIDE</p>
+                </div>
+            </header>
+
+            <div class="screen-container">
+                <div class="screen">
+                    <p>> LOADING BIO_DATA...</p>
+                    <p>> IDENTITY: PRODUCER</p>
+                    <br>
+                    <p id="bio-text">im sleeping... dont wake me up</p>
+                    <br>
+                    <span class="blink">_</span>
+                </div>
+            </div>
+
+            <div class="tape-window">
+                NOISE REDUCTION [ON]
+            </div>
+
+            <div class="deck-controls">
+                <a href="https://soundcloud.com/illwe" target="_blank" class="link-btn">
+                    <span>01. SOUNDCLOUD</span>
+                    <span class="icon">[↗]</span>
+                </a>
+                <a href="https://instagram.com/@_illwe_" target="_blank" class="link-btn">
+                    <span>02. INSTAGRAM</span>
+                    <span class="icon">[↗]</span>
+                </a>
+                <a href="https://youtube.com/@illwe" target="_blank" class="link-btn">
+                    <span>03. YOUTUBE</span>
+                    <span class="icon">[↗]</span>
+                </a>
+                <a href="mailto:bocchi@outlook.my" class="link-btn">
+                    <span>04. CONTACT</span>
+                    <span class="icon">[@]</span>
+                </a>
+                
+                <a href="https://airbit.com/illwee" target="_blank" class="link-btn" style="border-style: dashed;">
+                    <span>05. BUY BEATS</span>
+                    <span class="icon">[$$]</span>
+                </a>
+            </div>
+        </div>
+
+        <div id="thankyou-page" class="page">
+            <header>
+                <div>
+                    <h1>STATUS</h1>
+                    <div style="font-size: 0.8rem; letter-spacing: 2px;">TRANSACTION COMPLETED</div>
+                </div>
+                <div class="meta-data">
+                    <p>PLAY ►</p>
+                    <p>END OF TAPE</p>
+                </div>
+            </header>
+
+            <div class="screen-container">
+                <div class="screen" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                    <span class="heart-ascii">&lt;3</span>
+                    <h2>THANK YOU FOR<br>PURCHASING</h2>
+                    <br>
+                    <p style="font-size: 0.8rem;">Your support keeps the system running.</p>
+                </div>
+            </div>
+
+            <div class="ty-content">
+                <p style="font-size: 0.8rem; color: var(--dim-color);">HOPE YOU HAVE A NICE DAY</p>
+                
+                <button class="back-btn" onclick="switchPage('home')">
+                    &lt; BACK
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function switchPage(pageName) {
+            const home = document.getElementById('home-page');
+            const ty = document.getElementById('thankyou-page');
+
+            if (pageName === 'thankyou') {
+                home.classList.remove('active');
+                ty.classList.add('active');
+                history.pushState(null, '', '/thankyou');
+                
+            } else {
+                ty.classList.remove('active');
+                home.classList.add('active');
+                history.pushState(null, '', '/');
+            }
+        }
+
+        window.onpopstate = function() {
+            if(document.location.pathname.includes('thankyou')) {
+                switchPage('thankyou');
+            } else {
+                switchPage('home');
+            }
+        };
+    </script>
+</body>
+</html>
