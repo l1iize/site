@@ -297,29 +297,35 @@
     </div>
 
     <script>
-        function switchPage(pageName) {
+        function switchPage(pageName, updateHistory = true) {
             const home = document.getElementById('home-page');
             const ty = document.getElementById('thankyou-page');
 
             if (pageName === 'thankyou') {
                 home.classList.remove('active');
                 ty.classList.add('active');
-                history.pushState(null, '', '/thankyou');
-                
+                if (updateHistory) {
+                    history.pushState(null, '', '/thankyou');
+                }
             } else {
                 ty.classList.remove('active');
                 home.classList.add('active');
-                history.pushState(null, '', '/');
+                if (updateHistory) {
+                    history.pushState(null, '', '/');
+                }
             }
         }
 
-        window.onpopstate = function() {
-            if(document.location.pathname.includes('thankyou')) {
-                switchPage('thankyou');
+        function handlePageLoad() {
+            if (window.location.pathname.toLowerCase().includes('thankyou')) {
+                 switchPage('thankyou', false); 
             } else {
-                switchPage('home');
+                 switchPage('home', false);
             }
-        };
+        }
+        
+        window.onload = handlePageLoad;
+        window.onpopstate = handlePageLoad;
     </script>
 </body>
 </html>
