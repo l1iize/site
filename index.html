@@ -1,243 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>combolize</title>
-<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
-<style>
-body {
-  margin: 0;
-  background-color: #000;
-  color: #ff1a1a;
-  font-family: 'Times New Roman', 'UnifrakturCook', serif;
-  overflow-x: hidden;
-  position: relative;
-}
-body, body *, #about, #about *, .about, .about * {
-  font-family: 'Times New Roman', 'UnifrakturCook', serif !important;
-  color: #ff1a1a !important;
-}
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(255,0,0,0.05),
-    rgba(255,0,0,0.05) 2px,
-    rgba(0,255,255,0.05) 2px,
-    rgba(0,255,255,0.05) 4px
-  );
-  animation: glitchBG 1s infinite linear;
-  z-index: -1;
-  pointer-events: none;
-}
-#entrance {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-  overflow: hidden;
-}
-#entrance h1 {
-  font-size: 64px;
-  color: #ff1a1a;
-  z-index: 10;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  opacity: 0;
-  animation: entranceTextFade 0.5s forwards;
-}
-#red-block {
-  position: absolute;
-  bottom: -100%;
-  width: 100%;
-  height: 100%;
-  background-color: #ff1a1a;
-  z-index: 5;
-  animation: redBlockRise 1.4s forwards 1.6s;
-}
-.content-wrapper {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.9s ease, transform 0.9s ease;
-}
-.btn {
-  position: relative;
-  z-index: 2;
-  display: inline-block;
-  margin-top: 30px;
-  padding: 12px 28px;
-  border: 1px solid #ff1a1a;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 700;
-  transition: background 0.3s, color 0.3s;
-}
-.btn:hover {
-  background: #ff1a1a;
-  color: #000;
-}
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(6px);
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  padding: 18px 30px;
-  justify-content: flex-start;
-  gap: 20px;
-  flex-wrap: nowrap;
-}
-header h1 {
-  font-weight:700;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  font-size:20px;
-  margin:0;
-}
-nav {
-  display: flex;
-  gap: 20px;
-}
-nav a {
-  font-size:16px;
-  text-decoration:none;
-  color:#ff1a1a;
-}
-nav a:hover { color:#fff; }
-.hero {
-  min-height: 70vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  padding: 0 10px;
-}
-.hero h2 {
-  position: relative;
-  font-size: 48px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  z-index: 2;
-  text-shadow: 0 0 5px #ff1a1a,0 0 10px #ff1a1a,0 0 20px #ff4d4d,0 0 30px #ff4d4d;
-  animation: textGlitch 1s infinite;
-}
-.hero p {
-  position: relative;
-  z-index: 2;
-  margin-top: 15px;
-  font-size: 18px;
-  font-weight: 700;
-  opacity: 0.9;
-}
-.section { padding: 120px 10%; text-align: center; }
-.section h3 { font-size: 32px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 40px; }
-#track-list { display:flex; flex-direction:column; justify-content:center; align-items:center; gap:20px; }
-.about { max-width:800px; margin:0 auto; font-size:16px; line-height:1.7; }
-footer { background-color:#111; padding:60px 0; text-align:center; font-size:14px; }
-footer div:first-child { margin-bottom: 20px; }
-footer svg { transition: transform 0.3s; }
-footer svg:hover { transform: scale(1.2); }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>illwe // PRODUCER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #050505;
+            --main-color: #e0e0e0;
+            --dim-color: #555;
+            --accent-black: #000;
+            --scanline-opacity: 0.15;
+        }
 
-@keyframes glitchBG {
-  0% { transform: translate(0,0); opacity: 0.1; }
-  20% { transform: translate(-5px,2px); opacity: 0.1; }
-  40% { transform: translate(5px,-2px); opacity: 0.1; }
-  60% { transform: translate(-3px,1px); opacity: 0.1; }
-  80% { transform: translate(3px,-1px); opacity: 0.1; }
-  100% { transform: translate(0,0); opacity: 0.1; }
-}
-@keyframes textGlitch {
-  0% { text-shadow: 2px 0 #ff1a1a, -2px 0 #00ffff, 0 2px #ff4d4d; }
-  20% { text-shadow: -2px 0 #ff1a1a, 2px -1px #00ffff, 1px 2px #ff4d4d; }
-  40% { text-shadow: 2px -1px #ff1a1a, -1px 1px #00ffff, 0 -2px #ff4d4d; }
-  60% { text-shadow: -1px 1px #ff1a1a, 1px -2px #00ffff, 2px 1px #ff4d4d; }
-  80% { text-shadow: 1px 0 #ff1a1a, -2px 2px #00ffff, 0 1px #ff4d4d; }
-  100% { text-shadow: 2px 0 #ff1a1a, -2px 0 #00ffff, 0 2px #ff4d4d; }
-}
-@keyframes entranceTextFade {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-@keyframes redBlockRise {
-  0% { bottom: -100%; }
-  50% { bottom: 0; }
-  100% { bottom: 100%; }
-}
-</style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--main-color);
+            font-family: 'Space Mono', monospace;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 999;
+            opacity: var(--scanline-opacity);
+        }
+
+        .chassis {
+            width: 90%;
+            max-width: 600px;
+            border: 2px solid var(--main-color);
+            padding: 20px;
+            position: relative;
+            background: var(--bg-color);
+            box-shadow: 10px 10px 0px var(--dim-color);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed var(--dim-color);
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        .meta-data {
+            font-size: 0.7rem;
+            text-align: right;
+            color: var(--dim-color);
+        }
+
+        .screen-container {
+            border: 1px solid var(--dim-color);
+            padding: 5px;
+            margin-bottom: 20px;
+        }
+
+        .screen {
+            background-color: var(--main-color);
+            color: var(--accent-black);
+            padding: 15px;
+            min-height: 120px;
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        .blink {
+            animation: blinker 1s linear infinite;
+        }
+
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+
+        .deck-controls {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .link-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: var(--main-color);
+            border: 1px solid var(--main-color);
+            padding: 12px 15px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .link-btn:hover {
+            background-color: var(--main-color);
+            color: var(--accent-black);
+            box-shadow: 4px 4px 0px var(--dim-color);
+            transform: translate(-2px, -2px);
+        }
+
+        .link-btn .icon {
+            font-size: 0.8rem;
+        }
+
+        .tape-window {
+            height: 40px;
+            background: repeating-linear-gradient(
+                45deg,
+                #222,
+                #222 10px,
+                #111 10px,
+                #111 20px
+            );
+            margin: 20px 0;
+            border: 1px solid var(--dim-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: #444;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; filter: blur(5px); }
+            to { opacity: 1; filter: blur(0); }
+        }
+
+        .ty-content {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .heart-ascii {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .back-btn {
+            margin-top: 30px;
+            display: inline-block;
+            background: transparent;
+            border: 1px solid var(--main-color);
+            color: var(--main-color);
+            padding: 10px 30px;
+            font-family: 'Space Mono', monospace;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        
+        .back-btn:hover {
+            background: var(--main-color);
+            color: var(--bg-color);
+        }
+
+        @media (max-width: 600px) {
+            .chassis { width: 95%; padding: 15px; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
 </head>
 <body>
-<div id="entrance">
-  <h1>combolize</h1>
-  <div id="red-block"></div>
-</div>
-<div class="content-wrapper">
-<header>
-  <h1>combolize</h1>
-  <nav>
-    <a href="#tracks">Music</a>
-    <a href="#about">About</a>
-    <a href="https://soundcloud.com/combolize" target="_blank">Listen</a>
-  </nav>
-</header>
-<section class="hero">
-  <h2>combolize</h2>
-  <p>a bedroom producer</p>
-  <a href="#tracks" class="btn">Listen</a>
-</section>
-<section id="tracks" class="section">
-  <h3>Latest Tracks</h3>
-  <div id="track-list">
-    <p style="color:#888;">check on soundcloud</p>
-    <a href="https://soundcloud.com/combolize" class="btn" target="_blank">Go to SoundCloud</a>
-  </div>
-</section>
-<section id="about" class="section">
-  <h3>About</h3>
-  <div class="about">
-    <p>im sleeping... dont wake me up</p>
-  </div>
-</section>
-<footer>
-  <div>© 2025 combolize</div>
-  <div style="display: flex; justify-content: center; gap: 20px;">
-    <a href="https://soundcloud.com/combolize" target="_blank" aria-label="SoundCloud">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#ff1a1a" viewBox="0 0 24 24"><path d="M18.8 10.5c-.1-2.1-1.9-3.7-4-3.5-1.4.1-2.5.9-3 2.1-.2-.1-.5-.1-.8-.1-1.7 0-3 1.3-3 3 0 1.6 1.3 3 3 3h8c1.7 0 3-1.3 3-3 0-1.5-1.1-2.7-2.2-2.9z"/></svg>
-    </a>
-    <a href="https://instagram.com/combolize" target="_blank" aria-label="Instagram">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="#ff1a1a" xmlns="http://www.w3.org/2000/svg"><path d="M7 2C4.243 2 2 4.243 2 7V17C2 19.757 4.243 22 7 22H17C19.757 22 22 19.757 22 17V7C22 4.243 19.757 2 17 2H7ZM20 17C20 18.657 18.657 20 17 20H7C5.343 20 4 18.657 4 17V7C4 5.343 5.343 4 7 4H17C18.657 4 20 5.343 20 7V17ZM12 7C9.243 7 7 9.243 7 12C7 14.757 9.243 17 12 17C14.757 17 17 14.757 17 12C17 9.243 14.757 7 12 7ZM12 15C10.346 15 9 13.654 9 12C9 10.346 10.346 9 12 9C13.654 9 15 10.346 15 12C15 13.654 13.654 15 12 15ZM17.5 6C17.224 6 17 6.224 17 6.5C17 6.776 17.224 7 17.5 7C17.776 7 18 6.776 18 6.5C18 6.224 17.776 6 17.5 6Z"/></svg>
-    </a>
-    <a href="https://youtube.com/@combolize" target="_blank" aria-label="YouTube">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="#ff1a1a" xmlns="http://www.w3.org/2000/svg"><path d="M21.8 8.001C21.732 7.491 21.496 7.016 21.124 6.645C20.753 6.274 20.278 6.038 19.768 5.97C18.526 5.794 12 5.794 12 5.794C12 5.794 5.474 5.794 4.232 5.97C3.722 6.038 3.247 6.274 2.876 6.645C2.504 7.016 2.268 7.491 2.2 8.001C2 9.25 2 12 2 12C2 12 2 14.75 2.2 15.999C2.268 16.509 2.504 16.984 2.876 17.355C3.247 17.726 3.722 17.962 4.232 18.03C5.474 18.206 12 18.206 12 18.206C12 18.206 18.526 18.206 19.768 18.03C20.278 17.962 20.753 17.726 21.124 17.355C21.496 16.984 21.732 16.509 21.8 15.999C22 14.75 22 12 22 12C22 12 22 9.25 21.8 8.001ZM10 15V9L15 12L10 15Z"/></svg>
-    </a>
-  </div>
-</footer>
-</div>
-<script>
-setTimeout(() => {
-  const content = document.querySelector('.content-wrapper');
-  content.style.opacity = '1';
-  content.style.transform = 'translateY(0)';
-  document.getElementById('entrance').style.display = 'none';
-}, 2500);
-</script>
+
+    <div class="scanlines"></div>
+
+    <div class="chassis">
+        
+        <div id="home-page" class="page active">
+            <header>
+                <div>
+                    <h1>illwe</h1>
+                    <div style="font-size: 0.8rem; letter-spacing: 2px;">PRODUCER // SYSTEM.OP</div>
+                </div>
+                <div class="meta-data">
+                    <p>REC ●</p>
+                    <p>TAPE A-SIDE</p>
+                </div>
+            </header>
+
+            <div class="screen-container">
+                <div class="screen">
+                    <p>> LOADING BIO_DATA...</p>
+                    <p>> IDENTITY: PRODUCER</p>
+                    <br>
+                    <p id="bio-text">im sleeping... dont wake me up</p>
+                    <br>
+                    <span class="blink">_</span>
+                </div>
+            </div>
+
+            <div class="tape-window">
+                NOISE REDUCTION [ON]
+            </div>
+
+            <div class="deck-controls">
+                <a href="https://soundcloud.com/illwe" target="_blank" class="link-btn">
+                    <span>01. SOUNDCLOUD</span>
+                    <span class="icon">[↗]</span>
+                </a>
+                <a href="https://instagram.com/@_illwe_" target="_blank" class="link-btn">
+                    <span>02. INSTAGRAM</span>
+                    <span class="icon">[↗]</span>
+                </a>
+                <a href="https://youtube.com/@illwe" target="_blank" class="link-btn">
+                    <span>03. YOUTUBE</span>
+                    <span class="icon">[↗]</span>
+                </a>
+                <a href="mailto:bocchi@outlook.my" class="link-btn">
+                    <span>04. CONTACT</span>
+                    <span class="icon">[@]</span>
+                </a>
+                
+                <a href="https://airbit.com/illwee" target="_blank" class="link-btn" style="border-style: dashed;">
+                    <span>05. BUY BEATS</span>
+                    <span class="icon">[$$]</span>
+                </a>
+            </div>
+        </div>
+
+        <div id="thankyou-page" class="page">
+            <header>
+                <div>
+                    <h1>STATUS</h1>
+                    <div style="font-size: 0.8rem; letter-spacing: 2px;">TRANSACTION COMPLETED</div>
+                </div>
+                <div class="meta-data">
+                    <p>PLAY ►</p>
+                    <p>END OF TAPE</p>
+                </div>
+            </header>
+
+            <div class="screen-container">
+                <div class="screen" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                    <span class="heart-ascii">&lt;3</span>
+                    <h2>THANK YOU FOR<br>PURCHASING</h2>
+                    <br>
+                    <p style="font-size: 0.8rem;">Your support keeps the system running.</p>
+                </div>
+            </div>
+
+            <div class="ty-content">
+                <p style="font-size: 0.8rem; color: var(--dim-color);">HOPE YOU HAVE A NICE DAY</p>
+                
+                <button class="back-btn" onclick="switchPage('home')">
+                    &lt; BACK
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function switchPage(pageName) {
+            const home = document.getElementById('home-page');
+            const ty = document.getElementById('thankyou-page');
+
+            if (pageName === 'thankyou') {
+                home.classList.remove('active');
+                ty.classList.add('active');
+                history.pushState(null, '', '/thankyou');
+                
+            } else {
+                ty.classList.remove('active');
+                home.classList.add('active');
+                history.pushState(null, '', '/');
+            }
+        }
+
+        window.onpopstate = function() {
+            if(document.location.pathname.includes('thankyou')) {
+                switchPage('thankyou');
+            } else {
+                switchPage('home');
+            }
+        };
+    </script>
 </body>
 </html>
