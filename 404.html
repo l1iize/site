@@ -207,6 +207,19 @@
             color: var(--bg-color);
         }
 
+        #bio-input {
+            outline: none;
+            display: block;
+            min-width: 100%;
+            cursor: text;
+            min-height: 2.5rem; 
+        }
+
+        #bio-input .blink {
+            display: inline-block;
+            white-space: pre; 
+        }
+
         @media (max-width: 400px) {
              :root {
                 font-size: 14px;
@@ -254,9 +267,9 @@
                     <p>> LOADING BIO_DATA...</p>
                     <p>> IDENTITY: PRODUCER</p>
                     <br>
-                    <p id="bio-text">im sleeping... dont wake me up</p>
-                    <br>
-                    <span class="blink">_</span>
+                    <div id="bio-input" contenteditable="true" spellcheck="false">
+                        im sleeping... dont wake me up<br><span class="blink">_</span>
+                    </div>
                 </div>
             </div>
 
