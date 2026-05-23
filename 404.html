@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRYPT 9</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Pirata+One&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
             --bg-color: #030303;
@@ -53,20 +53,6 @@
             border-bottom: 2px solid var(--fg-color);
             padding-bottom: 1rem;
             margin-bottom: 3rem;
-        }
-
-        nav a {
-            color: var(--fg-color);
-            text-decoration: none;
-            margin-left: 2rem;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            transition: 0s;
-        }
-
-        nav a:hover {
-            background-color: var(--fg-color);
-            color: var(--bg-color);
         }
 
         .hero {
@@ -147,7 +133,7 @@
             position: relative;
             transition: border-color 0.2s;
         }
-        
+
         .box::before {
             content: '+';
             position: absolute;
@@ -191,7 +177,6 @@
         @media (max-width: 600px) {
             .grid { grid-template-columns: 1fr; }
             .glitch { font-size: 3rem; }
-            nav { display: none; }
         }
     </style>
 </head>
@@ -206,19 +191,19 @@
 
         <main>
             <section class="hero">
-                < img src="logo.png" alt="CRYPT 9 LOGO" class="logo-img">
+                <img src="logo.png" alt="CRYPT 9 LOGO" class="logo-img">
                 <h1 class="glitch gothic-text" data-text="crypt 9">crypt 9</h1>
-                <p class="subtitle" id="typewriter"></p >
+                <p class="subtitle" id="typewriter"></p>
             </section>
 
             <section id="manifesto">
                 <h2 class="section-title gothic-text">the manifesto</h2>
                 <div class="box">
                     <h3>//</h3>
-                    <p>A MYSTERIOUS UNDERGROUND RECORD LABLE.</p >
-                  <p>CREATED BY 2 PEOPLE WHO LOVED MUSIC.</p >
-                  <p>WELCOME TO JOIN US.</p >
-                    <p>CRYPT 9.</p >
+                    <p>A MYSTERIOUS UNDERGROUND RECORD LABEL.</p>
+                    <p>CREATED BY 2 PEOPLE WHO LOVED MUSIC.</p>
+                    <p>WELCOME TO JOIN US.</p>
+                    <p>CRYPT 9.</p>
                 </div>
             </section>
 
@@ -226,22 +211,22 @@
                 <h2 class="section-title gothic-text">roster</h2>
                 <div class="grid">
                     <div class="box">
-                        <h3><a href="https://soundcloud.com/p1llboyna" target="_blank" class="artist-link">PILLBOYNA</a ></h3>
-                        <p>RAPPER. PRODUCER.</p >
-                        <p>// <a href="https://soundcloud.com/p1llboyna" target="_blank" style="color: #666;">SOUNDCLOUD</a ></p >
+                        <h3><a href="https://soundcloud.com/p1llboyna" target="_blank" class="artist-link">PILLBOYNA</a></h3>
+                        <p>RAPPER. PRODUCER.</p>
+                        <p>// <a href="https://soundcloud.com/p1llboyna" target="_blank" style="color: #666;">SOUNDCLOUD</a></p>
                     </div>
                     <div class="box">
-                        <h3><a href="https://soundcloud.com/illwe" target="_blank" class="artist-link">illwe</a ></h3>
-                        <p>PRODUCER. DOG.</p >
-                        <p>// <a href="https://soundcloud.com/illwe" target="_blank" style="color: #666;">SOUNDCLOUD</a ></p >
+                        <h3><a href="https://soundcloud.com/illwe" target="_blank" class="artist-link">illwe</a></h3>
+                        <p>PRODUCER. DOG.</p>
+                        <p>// <a href="https://soundcloud.com/illwe" target="_blank" style="color: #666;">SOUNDCLOUD</a></p>
                     </div>
                 </div>
             </section>
         </main>
 
         <footer>
-            <p>© 2026 CRYPT 9.</p >
-            <p class="gothic-text" style="font-size: 1.2rem; color: #fff; margin-top: 1rem;">memento mori</p >
+            <p>© 2026 CRYPT 9.</p>
+            <p class="gothic-text" style="font-size: 1.2rem; color: #fff; margin-top: 1rem;">memento mori</p>
         </footer>
     </div>
 
@@ -249,6 +234,7 @@
         const text = "c r y p t n i n e";
         let i = 0;
         const speed = 50;
+
         function typeWriter() {
             if (i < text.length) {
                 document.getElementById("typewriter").innerHTML += text.charAt(i);
@@ -256,6 +242,7 @@
                 setTimeout(typeWriter, speed);
             }
         }
+
         window.onload = typeWriter;
     </script>
 </body>
