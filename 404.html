@@ -3,15 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CRYPT 9 TILL THE SOUL DECLINES.">
+    <meta name="theme-color" content="#050505">
     <title>CRYPT 9</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Pirata+One&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-color: #030303;
+            --bg-color: #050505;
             --fg-color: #f0f0f0;
-            --accent: #fff;
+            --muted: #7a7a7a;
+            --line: #262626;
+            --blood: #ff2a2a;
+            --cyan: #00e5ff;
         }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body, html {
             margin: 0;
@@ -23,17 +33,395 @@
             overflow-x: hidden;
         }
 
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0) 45%, rgba(0,0,0,0.9) 100%);
+        }
+
         .gothic-text {
             font-family: "Old English Text MT", "Pirata One", cursive;
             font-weight: normal;
             letter-spacing: 2px;
         }
 
+
         .scanlines {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            inset: 0;
+            background:
+                linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.28) 50%),
+                linear-gradient(90deg, rgba(255,0,0,0.06), rgba(0,255,0,0.02), rgba(0,0,255,0.06));
             background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 999;
+            animation: scan-move 8s linear infinite;
+        }
+        @keyframes scan-move {
+            0% { background-position: 0 0, 0 0; }
+            100% { background-position: 0 1000px, 0 0; }
+        }
+
+        .grain {
+            position: fixed;
+            inset: -50%;
+            width: 200%; height: 200%;
+            z-index: 998;
+            pointer-events: none;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            animation: grain 0.5s steps(3) infinite;
+        }
+        @keyframes grain {
+            0%,100% { transform: translate(0,0); }
+            25% { transform: translate(-4%,-3%); }
+            50% { transform: translate(3%,2%); }
+            75% { transform: translate(-2%,4%); }
+        }
+
+
+        .boot {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: boot-out 2.6s forwards;
+        }
+        @keyframes boot-out {
+            0%, 80% { opacity: 1; visibility: visible; }
+            100% { opacity: 0; visibility: hidden; pointer-events: none; }
+        }
+        .boot-inner { font-size: 0.85rem; line-height: 2; }
+        .boot-line { margin: 0; opacity: 0; animation: boot-line 0.4s forwards; }
+        .boot-line:nth-child(1) { animation-delay: 0.1s; }
+        .boot-line:nth-child(2) { animation-delay: 0.7s; }
+        .boot-line:nth-child(3) { animation-delay: 1.3s; }
+        .boot-line:nth-child(4) { animation-delay: 1.9s; color: var(--blood); }
+        @keyframes boot-line { to { opacity: 1; } }
+        .blink { animation: blink 1s steps(2) infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--fg-color);
+            padding-bottom: 1rem;
+            margin-bottom: 3rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .brand { display: flex; align-items: center; gap: 0.75rem; }
+        .brand-logo {
+            height: 32px;
+            width: auto;
+            display: block;
+            filter: contrast(1.4) grayscale(100%);
+        }
+        .status { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--muted); }
+        .dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--blood);
+            box-shadow: 0 0 8px var(--blood);
+            animation: blink 1.4s steps(2) infinite;
+        }
+
+
+        .hero { text-align: center; margin: 4rem 0 2rem; }
+
+        .logo-img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 2rem;
+            filter: contrast(1.5) grayscale(100%) drop-shadow(0 0 10px rgba(255,255,255,0.08));
+            animation: logo-pulse 4s ease-in-out infinite;
+        }
+        @keyframes logo-pulse {
+            0%, 100% { filter: contrast(1.5) grayscale(100%) drop-shadow(0 0 8px rgba(255,255,255,0.05)); }
+            50% { filter: contrast(1.7) grayscale(100%) drop-shadow(0 0 20px rgba(255,255,255,0.16)); }
+        }
+
+        .glitch {
+            font-size: 5rem;
+            margin: 0;
+            position: relative;
+            display: inline-block;
+            color: var(--fg-color);
+            animation: flicker 5s infinite;
+        }
+        @keyframes flicker {
+            0%,19%,21%,55%,57%,100% { opacity: 1; }
+            20% { opacity: 0.55; }
+            56% { opacity: 0.8; }
+        }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            inset: 0;
+            background: var(--bg-color);
+            overflow: hidden;
+        }
+        .glitch::before { left: 3px; text-shadow: -2px 0 var(--blood); animation: glitch-1 2.4s steps(2) infinite; }
+        .glitch::after { left: -3px; text-shadow: 2px 0 var(--cyan); animation: glitch-2 3.1s steps(2) infinite; }
+        @keyframes glitch-1 {
+            0% { clip-path: inset(18% 0 62% 0); transform: translateX(-2px); }
+            20% { clip-path: inset(70% 0 12% 0); transform: translateX(2px); }
+            40% { clip-path: inset(42% 0 40% 0); transform: translateX(-1px); }
+            60% { clip-path: inset(8% 0 80% 0); transform: translateX(1px); }
+            80% { clip-path: inset(85% 0 4% 0); transform: translateX(-2px); }
+            100% { clip-path: inset(50% 0 30% 0); transform: translateX(2px); }
+        }
+        @keyframes glitch-2 {
+            0% { clip-path: inset(72% 0 14% 0); transform: translateX(2px); }
+            20% { clip-path: inset(20% 0 60% 0); transform: translateX(-2px); }
+            40% { clip-path: inset(54% 0 28% 0); transform: translateX(1px); }
+            60% { clip-path: inset(34% 0 50% 0); transform: translateX(-1px); }
+            80% { clip-path: inset(6% 0 84% 0); transform: translateX(2px); }
+            100% { clip-path: inset(60% 0 22% 0); transform: translateX(-2px); }
+        }
+        .glitch:hover::before { animation-duration: 0.4s; }
+        .glitch:hover::after { animation-duration: 0.5s; }
+
+        .subtitle {
+            font-size: 1rem;
+            letter-spacing: 5px;
+            margin-top: 0.5rem;
+            color: var(--muted);
+            text-transform: lowercase;
+            min-height: 1.2em;
+        }
+        .subtitle::after { content: "▮"; animation: blink 1s steps(2) infinite; margin-left: 2px; }
+
+
+        .ticker {
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 0.6rem 0;
+            margin: 2rem 0;
+        }
+        .ticker-track { display: inline-block; animation: ticker 22s linear infinite; }
+        .ticker-track span { font-size: 0.8rem; letter-spacing: 3px; color: var(--muted); }
+        .ticker:hover .ticker-track { animation-play-state: paused; }
+        @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+       
+        .section-title {
+            font-size: 2.5rem;
+            border-left: 10px solid var(--fg-color);
+            padding-left: 1rem;
+            margin-top: 4rem;
+        }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+
+        .box {
+            border: 1px solid var(--line);
+            padding: 2rem;
+            position: relative;
+            transition: border-color 0.25s, background 0.25s, transform 0.25s;
+            overflow: hidden;
+        }
+        .box::before {
+            content: '+';
+            position: absolute;
+            top: 10px; right: 15px;
+            font-size: 1.5rem;
+            color: #555;
+            transition: color 0.25s;
+        }
+        .box::after {
+            content: "";
+            position: absolute;
+            top: 0; left: -120%;
+            width: 60%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
+            transition: left 0.6s ease;
+        }
+        .box:hover {
+            border-color: var(--fg-color);
+            background: rgba(255,255,255,0.05);
+            transform: translateY(-3px);
+        }
+        .box:hover::before { color: var(--blood); }
+        .box:hover::after { left: 130%; }
+        .box:hover .artist-link { animation: jitter 0.3s steps(2) 2; }
+        @keyframes jitter {
+            0% { transform: translate(0,0); }
+            25% { transform: translate(-2px,1px); }
+            50% { transform: translate(2px,-1px); }
+            75% { transform: translate(-1px,-1px); }
+            100% { transform: translate(0,0); }
+        }
+
+        .artist-link {
+            color: var(--fg-color);
+            text-decoration: none;
+            display: inline-block;
+            border-bottom: 1px solid transparent;
+            margin-bottom: 0.5rem;
+        }
+        .artist-link:hover { border-bottom: 1px solid var(--fg-color); }
+
+        p { line-height: 1.6; font-size: 0.9rem; color: #aaa; }
+
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.in { opacity: 1; transform: none; }
+
+        footer {
+            margin-top: 5rem;
+            border-top: 1px dashed #444;
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+            .glitch { font-size: 3rem; }
+            .section-title { font-size: 1.8rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+            .reveal { opacity: 1; transform: none; }
+            .boot { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="boot" id="boot">
+        <div class="boot-inner gothic-text">
+            <p class="boot-line">> CRYPT 9</p>
+            <p class="boot-line">> TILL</p>
+            <p class="boot-line">> THE SOUL</p>
+            <p class="boot-line">> DECLINES <span class="blink">_</span></p>
+        </div>
+    </div>
+
+    <div class="grain"></div>
+    <div class="scanlines"></div>
+
+    <div class="container">
+        <header>
+            <div class="brand">
+                <img src="logo.png" alt="CRYPT 9" class="brand-logo">
+                <span class="gothic-text" style="font-size: 1.5rem;">CRYPT 9</span>
+            </div>
+            <div class="status"><span class="dot"></span> ON AIR</div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <img src="logo.png" alt="CRYPT 9 LOGO" class="logo-img">
+                <h1 class="glitch gothic-text" data-text="crypt 9">crypt 9</h1>
+                <p class="subtitle" id="typewriter"></p>
+            </section>
+
+            <div class="ticker" aria-hidden="true">
+                <div class="ticker-track" id="ticker">
+                    <span>★ CRYPT 9 ★ ★ CRYPT 9 ★&nbsp;</span>
+                </div>
+            </div>
+
+            <section id="manifesto" class="reveal">
+                <h2 class="section-title gothic-text">the manifesto</h2>
+                <div class="box">
+                    <h3>//</h3>
+                    <p>A MYSTERIOUS UNDERGROUND RECORD LABEL.</p>
+                    <p>CREATED BY 2 PEOPLE WHO LOVED MUSIC.</p>
+                    <p>WELCOME TO JOIN US.</p>
+                    <p>CRYPT 9.</p>
+                </div>
+            </section>
+
+            <section id="artists" class="reveal">
+                <h2 class="section-title gothic-text">roster</h2>
+                <div class="grid">
+                    <div class="box">
+                        <h3><a href="https://soundcloud.com/p1llboyna" target="_blank" rel="noopener" class="artist-link">PILLBOYNA</a></h3>
+                        <p>RAPPER. PRODUCER.</p>
+                        <p>// <a href="https://soundcloud.com/p1llboyna" target="_blank" rel="noopener" style="color: #666;">SOUNDCLOUD</a></p>
+                    </div>
+                    <div class="box">
+                        <h3><a href="https://soundcloud.com/illwe" target="_blank" rel="noopener" class="artist-link">illwe</a></h3>
+                        <p>PRODUCER.</p>
+                        <p>// <a href="https://soundcloud.com/illwe" target="_blank" rel="noopener" style="color: #666;">SOUNDCLOUD</a></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="reveal">
+            <p>© 2026 CRYPT 9.</p>
+            <p class="gothic-text" style="font-size: 1.2rem; color: #fff; margin-top: 1rem;">crypt 9 till the soul declines</p>
+        </footer>
+    </div>
+
+    <script>
+        /* ---- TYPEWRITER (cycles through phrases) ---- */
+        const phrases = ["c r y p t   n i n e", "c r y p t  i x", "c r y p t  9"];
+        const out = document.getElementById("typewriter");
+        let p = 0, i = 0, deleting = false;
+
+        function type() {
+            const word = phrases[p];
+            out.textContent = deleting ? word.substring(0, i--) : word.substring(0, i++);
+
+            if (!deleting && i > word.length) {
+                deleting = true;
+                setTimeout(type, 1600);
+                return;
+            }
+            if (deleting && i < 0) {
+                deleting = false;
+                i = 0;
+                p = (p + 1) % phrases.length;
+            }
+            setTimeout(type, deleting ? 45 : 95);
+        }
+        type();
+
+        
+        const ticker = document.getElementById("ticker");
+        ticker.innerHTML += ticker.innerHTML;
+
+        
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("in"); });
+        }, { threshold: 0.15 });
+        document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+        
+        const boot = document.getElementById("boot");
+        if (boot) setTimeout(() => boot.remove(), 2800);
+    </script>
+</body>
+</html>
             pointer-events: none;
             z-index: 999;
         }
